@@ -5,3 +5,4 @@ frontend/build/
 backend/.idea
 frontend/.idea
 *.pyc
+backend/db.sqlite3
