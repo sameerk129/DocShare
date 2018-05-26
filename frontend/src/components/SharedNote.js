@@ -4,6 +4,8 @@ import settings from '../config';
 import util from 'util';
 import RichTextEditor from 'react-rte';
 import {logger} from '../utils';
+import { Redirect } from 'react-router-dom';
+import history from "../history";
 
 export class SharedNote extends Component {
 
@@ -34,8 +36,8 @@ export class SharedNote extends Component {
           }})
       })
       .catch(err => {
-
-      })
+        history.push(settings.uiRouteUrls.NOT_FOUND);
+      });
   }
 
   render() {

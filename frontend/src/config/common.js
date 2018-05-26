@@ -6,6 +6,8 @@ export const urls = (hostAdd, rootUrl) => ({
   FOLDER_NOTE: rootUrl + '/api/folders/%s/notes/%s/',
   NEW_NOTE: rootUrl + '/api/folders/%s/notes/',
   SHARED_NOTE: rootUrl + '/api/notes/%s/',
+  NEW_FOLDER: rootUrl + '/api/folders/',
+  EDIT_FOLDER: rootUrl + '/api/folders/%s/',
 });
 
 export const uiRoutingUrls = {
@@ -15,6 +17,7 @@ export const uiRoutingUrls = {
   FOLDER_NOTES: '/folders/:folderId/notes',
   FOLDER_NOTE: '/folders/:folderId/notes',
   LANDING: '/landing',
+  NOT_FOUND: '/not-found/',
 };
 
 export const uiRouteUrls = {
@@ -22,6 +25,7 @@ export const uiRouteUrls = {
   FOLDER_NOTES: '/folders/%s/notes/',
   FOLDER_NOTE: '/folders/%s/notes/',
   LANDING: '/landing',
+  NOT_FOUND: '/not-found/',
 };
 
 export const AUTHORIZATION_HEADER = "Authorization";

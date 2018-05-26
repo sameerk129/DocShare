@@ -20,13 +20,30 @@ from django.shortcuts import get_object_or_404
 class FoldersList(APIView):
 
     def get(self, request, **kwargs):
-        notes = Folder.objects.filter(**request.query_params)
-        serializer = FolderSerializer(notes, many=True)
+        folder = Folder.objects.filter(**request.query_params)
+        serializer = FolderSerializer(folder, many=True)
         return Response(serializer.data)
 
-    def post(self, request):
-        return Response({})
+    def post(self, request, **kwargs):
+        print "request.data is:" % request.data
+        folder = Folder.objects.create(title=request.data.get('title'))
+        serializer = FolderSerializer(folder)
+        return Response(serializer.data)
 
+
+class FolderObj(APIView):
+
+    def get(self, request, **kwargs):
+        folder = get_object_or_404(Folder, id=kwargs['folder_id'])
+        serializer = FolderSerializer(folder)
+        return Response(serializer.data)
+
+    def put(self, request, **kwargs):
+        folder = get_object_or_404(Folder, id=kwargs['folder_id'])
+        folder.title = request.data.get('title')
+        folder.save()
+        serializer = FolderSerializer(folder)
+        return Response(serializer.data)
 
 class FolderNotesList(APIView):
 

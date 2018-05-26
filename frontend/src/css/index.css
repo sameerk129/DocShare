@@ -89,3 +89,11 @@ body {
     margin: 0 0 10px 10px !important;
     z-index: 10;
 }
+
+.edit-folder-button {
+    position: fixed;
+    bottom: 0;
+    right: 50%;
+    margin: 0 0 10px 10px !important;
+    z-index: 10;
+}

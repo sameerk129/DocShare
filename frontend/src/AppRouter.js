@@ -3,7 +3,7 @@ import { Route, Switch, Redirect, Router } from 'react-router-dom';
 
 import App from './App';
 import history from './history';
-import { Login, SharedNote } from './components';
+import { Login, SharedNote, NotFound } from './components';
 import settings from './config';
 import axios from 'axios';
 
@@ -37,6 +37,7 @@ class AppRouter extends Component{
     return (
         <Router history={history}>
           <Switch>
+            <Route path={settings.uiRoutingUrls.NOT_FOUND} component={NotFound}/>
             <Route path={settings.uiRoutingUrls.SHARED_NOTE} component={SharedNote}/>
             <Route path={settings.uiRoutingUrls.LOGIN} render={this.isAuthenticated}/>
             <Route path='/' render={this.requireAuth}/>

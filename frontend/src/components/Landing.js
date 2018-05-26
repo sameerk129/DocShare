@@ -1,13 +1,19 @@
 import React, {Component} from 'react';
 
-import Sidebar from 'react-sidebar';
 import {logger} from '../utils';
 import axios from "axios/index";
 import settings from "../config";
 
 import util from 'util';
 import {NotesCard} from "./NotesCard";
-import {Button} from 'react-bootstrap';
+import {
+  Button,
+  Modal,
+  Form,
+  FormControl,
+  ControlLabel,
+  HelpBlock,
+} from 'react-bootstrap';
 
 
 export class Landing extends Component {
@@ -19,6 +25,8 @@ export class Landing extends Component {
     this.state = {
       foldersList: [],
       notes: [],
+      showFolderModal: false,
+      editFolderDetails: {},
     };
   }
 
@@ -88,6 +96,80 @@ export class Landing extends Component {
     })
   }
 
+  onFolderNameChange = (event) => {
+    logger.component("Landing", "onFolderNameChange", {event});
+    this.setState({title: event.target.value});
+  };
+
+  onAddFolderClick = () => {
+    this.setState({showFolderModal: true, newFolder: true});
+  };
+
+  onSaveModalClick = () => {
+    let data = {
+      title: this.state.title,
+    };
+
+    if (data.title === undefined || data.title === null || data.title === "") {
+      this.setState({titleErr: "Please Enter some title"});
+      return
+    }
+
+    if (this.state.newFolder) {
+      axios({
+        url: settings.urls.NEW_FOLDER,
+        method: "POST",
+        data: data,
+      })
+        .then(resp => {
+          let foldersList = [...this.state.foldersList];
+          foldersList.push(resp.data);
+          this.setState({
+            foldersList: foldersList,
+            showFolderModal: false,
+          });
+        });
+    }
+    else {
+      axios({
+        url: util.format(settings.urls.EDIT_FOLDER, this.state.selectedFolderId),
+        method: "PUT",
+        data: data,
+      })
+        .then(resp => {
+          let foldersList = [...this.state.foldersList].map( ele => {
+            if (ele.id === parseInt(this.state.selectedFolderId)) {
+              return {
+                title: resp.data.title,
+                id: resp.data.id,
+                notes: resp.data.notes,
+              };
+            }
+            else return ele;
+          });
+          this.setState({foldersList: foldersList, showFolderModal: false});
+        });
+    }
+  };
+
+  editFolderOptions = (event) => {
+    let selectedFolder = this.state.foldersList.find(ele => {
+      return (ele.id === parseInt(this.state.selectedFolderId));
+    });
+    this.setState({title: selectedFolder.title, showFolderModal: true});
+  };
+
+  closeFolderModal = () => {
+    this.setState({showFolderModal: false});
+  };
+
+  onModalExit = () => {
+    this.setState({
+      title: null,
+      titleErr: null,
+    })
+  };
+
   render() {
     this.beforeRenderChecks();
 
@@ -103,15 +185,47 @@ export class Landing extends Component {
         </div>
         {this.state.selectedFolderId !== undefined ?
           <Button
+            onClick={this.editFolderOptions}
+            bsStyle="link"
+            className="edit-folder-button">
+            Edit
+          </Button>: null}
+        {this.state.selectedFolderId !== undefined ?
+          <Button
             onClick={this.onAddNoteClick}
+            bsStyle="success"
             className="add-note-button">
             Add Note to Folder
           </Button>: null}
-          <Button
-            className="add-folder-button"
-            onClick={this.onAddFolderClick}>
-            Add Folder
-          </Button>
+        <Button
+          className="add-folder-button"
+          onClick={this.onAddFolderClick}>
+          Add Folder
+        </Button>
+        <Modal show={this.state.showFolderModal} onHide={this.closeFolderModal} onExit={this.onModalExit}>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              Folder Options
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <ControlLabel>Title</ControlLabel>
+              <FormControl
+                onChange={this.onFolderNameChange}
+                type="text"
+                placeholder="Enter text"
+                value={this.state.title}
+              />
+              <HelpBlock>
+                {this.state.titleErr}
+              </HelpBlock>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.onSaveModalClick}>Save</Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     )
   }
