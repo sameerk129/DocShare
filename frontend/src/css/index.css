@@ -1,0 +1,91 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.section{
+    margin-top: 60px;
+}
+
+.editor {
+    margin-top: 120px;
+}
+
+.editor-save-button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 0 10px 10px 0 !important;
+    z-index: 10;
+}
+
+.editor-share-checkbox{
+    position: fixed !important;
+    bottom: 0;
+    left: 0;
+    margin: 0 0 10px 10px;
+    z-index: 10;
+}
+
+.folder-list-sidebar {
+    z-index: 100;
+    position: absolute;
+    width: 10%;
+    left: 0;
+    background: #FFF;
+    bottom: 0;
+    top: 60px;
+    border-right: 1px solid black;
+}
+
+.notes-list-column {
+    /*z-index: 100;*/
+    position: absolute;
+    left: 11%;
+    background: #FFF;
+    bottom: 0;
+    top: 60px;
+    width: 100%;
+}
+
+.note-card-jumbotron:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.note-card .title {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.note-card .body {
+    margin-bottom: 20px;
+    padding: 0 15px;
+    font-size: 12px;
+}
+
+.add-note-button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 0 10px 10px 0 !important;
+    z-index: 10;
+}
+
+.landing-page {
+    margin-top: 60px;
+    border-right: 1px solid black;
+    height: 100%;
+}
+
+.btn.active {
+    color: orangered;
+}
+
+.add-folder-button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin: 0 0 10px 10px !important;
+    z-index: 10;
+}

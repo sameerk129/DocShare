@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  frontend:
+    build: .
+    working_dir: /opt/app/
+    command: npm start
+    volumes:
+       - .:/opt/app/
+       - /opt/app/node_modules
+    ports:
+      - "3000:3000"
