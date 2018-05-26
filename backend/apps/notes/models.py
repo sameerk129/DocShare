@@ -9,7 +9,6 @@ from tinymce import models as tinymce_models
 
 class Notes(models.Model):
     title = models.CharField(max_length=100)
-    content = models.TextField()
     public = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
