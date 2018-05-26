@@ -1,4 +1,8 @@
 Django==1.11.4
+django-cors-headers==2.2.0
+django-extensions==2.0.7
+django-tinymce==2.7.0
 djangorestframework==3.6.4
 pytz==2018.4
-django-extensions==2.0.7
+six==1.11.0
+typing==3.6.4
