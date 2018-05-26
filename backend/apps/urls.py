@@ -19,11 +19,13 @@ from notes import urls as notes_urls
 from folders import urls as folder_urls
 from rest_framework.authtoken import views as rest_framework_view
 from auth.views import LogoutUser
+from folders.views import renderTemplate
 
 admin.site.site_title = "DocShare"
 admin.site.site_header = "DocShare"
 
 urlpatterns = [
+    url(r'^$', renderTemplate),
     url(r'^admin/', admin.site.urls),
     url(r'^api/login/$', rest_framework_view.obtain_auth_token, name='login'),
     url(r'^api/logout/$', LogoutUser.as_view(), name='logout'),

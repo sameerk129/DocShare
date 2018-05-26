@@ -5,7 +5,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-# Create your views here.
+from django.http import HttpResponse
+from django.shortcuts import render_to_response
 
 
 class LogoutUser(APIView):
@@ -15,3 +16,4 @@ class LogoutUser(APIView):
         # simply delete the token to force a login
         request.user.auth_token.delete()
         return Response(status=status.HTTP_200_OK)
+
