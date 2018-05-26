@@ -93,14 +93,5 @@ class FolderNote(APIView):
         return Response(serializer.data)
 
 
-class FolderNotes(APIView):
-
-    def get(self, request, **kwargs):
-        print "kwargs are: %s" % kwargs
-        return Response([{"Hello": "World"}])
-
-
-def renderTemplate(request):
-    # template = loader.get_template("auth/templates/index.html")
-    # return HttpResponse(template.render)
+def renderTemplate(request, **kwargs):
     return render_to_response("folders/index.html")

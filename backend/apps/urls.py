@@ -26,6 +26,10 @@ admin.site.site_header = "DocShare"
 
 urlpatterns = [
     url(r'^$', renderTemplate),
+    url(r'^landing/$', renderTemplate),
+    url(r'^login/$', renderTemplate),
+    url(r'^folders/(?P<folder_id>\d+)/notes/$', renderTemplate),
+    url(r'^shared/(?P<note_id>\d+)/$', renderTemplate),
     url(r'^admin/', admin.site.urls),
     url(r'^api/login/$', rest_framework_view.obtain_auth_token, name='login'),
     url(r'^api/logout/$', LogoutUser.as_view(), name='logout'),
